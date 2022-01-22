@@ -1,6 +1,7 @@
 package com.sarasoliszambrano.experian.service;
 
 import com.sarasoliszambrano.experian.dto.ExperianDto;
+import com.sarasoliszambrano.experian.model.ExperianModel;
 import org.json.JSONException;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +21,7 @@ public interface ExperianService {
     List<ExperianDto> getAllValues () throws SQLException, JSONException;
 
     /*
-     * Add new value in the database, if the value exits, it will be replaced.
-     */
-    List<ExperianDto> addNewValue () throws SQLException, JSONException;
-
-    /*
      * Update a value in the database, if the value exits, it will be replaced.
      */
-    List<ExperianDto> updateValue () throws SQLException, JSONException;
+    void updateRecord(ExperianModel model) throws SQLException, JSONException;
 }

@@ -23,7 +23,7 @@ public class ExperianServiceImpl implements ExperianService {
     ExperianRepository experianRepository;
 
     @Override
-    public List<ExperianDto> getAllValues() throws SQLException, JSONException {
+    public List<ExperianDto> getAllValues() throws SQLException {
         log.debug(" ------ In GetAllValues Method in ServiceImpl ------- ");
 
         experianRepository.dataBaseConnection();
@@ -40,12 +40,8 @@ public class ExperianServiceImpl implements ExperianService {
     }
 
     @Override
-    public List<ExperianDto> addNewValue() throws SQLException, JSONException {
-        return null;
-    }
-
-    @Override
-    public List<ExperianDto> updateValue() throws SQLException, JSONException {
-        return null;
+    public void updateRecord(ExperianModel model) throws SQLException, JSONException {
+        experianRepository.dataBaseConnection();
+        experianRepository.updateRecord(model);
     }
 }

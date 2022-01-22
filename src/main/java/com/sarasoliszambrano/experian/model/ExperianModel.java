@@ -2,15 +2,26 @@ package com.sarasoliszambrano.experian.model;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 public class ExperianModel {
+
+    private Integer id;
     private String companyName;
     private Date registrationDate;
     private Float score;
     private Integer directorsCount;
     private Date lastUpdated;
+
+    public ExperianModel(Integer id, String companyName, Date registrationDate, Float score, Integer directorsCount, Date lastUpdated) {
+        this.id = id;
+        this.companyName = companyName;
+        this.registrationDate = registrationDate;
+        this.score = score;
+        this.directorsCount = directorsCount;
+        this.lastUpdated = lastUpdated;
+    }
 
     public ExperianModel(String companyName, Date registrationDate, Float score, Integer directorsCount, Date lastUpdated) {
         this.companyName = companyName;
@@ -19,6 +30,10 @@ public class ExperianModel {
         this.directorsCount = directorsCount;
         this.lastUpdated = lastUpdated;
     }
+
+    public Integer getId() {return id;}
+
+    public void setId(Integer id) {this.id = id;}
 
     public String getCompanyName() {
         return companyName;
