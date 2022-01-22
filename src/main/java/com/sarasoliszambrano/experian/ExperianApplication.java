@@ -1,6 +1,9 @@
 package com.sarasoliszambrano.experian;
 
-import org.springframework.boot.SpringApplication;
+import com.sarasoliszambrano.experian.controller.ExperianController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.*;
@@ -9,29 +12,20 @@ import java.util.Properties;
 
 @SpringBootApplication
 public class ExperianApplication {
+	private static final Logger log = LoggerFactory.getLogger(ExperianController.class);
 
-	public static void main(String[] args) {
-
-		SpringApplication.run(ExperianApplication.class, args);
+	private static void main(String[] args) {
+		//SpringApplication.run(ExperianApplication.class, args);
 		try {
-			System.out.println("Connecting with mysql");
-
+			log.info("Connecting with mysql");
 			String url = "jdbc:mysql://localhost:3306/experian?autoReconnect=true&useSSL=false";
 			Properties info = new Properties();
 			info.put("user", "root"); info.put("password", "");
 			Connection dbConnection = DriverManager.getConnection(url, info);
-
-			//Read more: https://javarevisited.blogspot.com/2016/09/javasqlsqlexception-no-suitable-driver-mysql-jdbc-localhost.html#ixzz7IXvJiekY
-
-
-			/*Connection conn = null;
-			Statement statement = null;
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql:://localhost:3306/experian", "root", "");*/
-			System.out.println("Connection made");
+			log.info("Connection made");
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
-			System.out.println("Error connecting to the database");
+			log.error("Error connecting to database");
 		}
 	}
 
