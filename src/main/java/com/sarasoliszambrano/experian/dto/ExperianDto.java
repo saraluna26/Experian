@@ -1,29 +1,65 @@
 package com.sarasoliszambrano.experian.dto;
 
-import com.sarasoliszambrano.experian.model.ExperianModel;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Builder
 public class ExperianDto {
-    private Integer id;
-    private String companyName;
-    private Date registrationDate;
+    private Integer msg_id;
+    private String company_name;
+    private Date registration_date;
     private Float score;
-    private Integer directorsCount;
-    private Date lastUpdated;
+    private Integer directors_count;
+    private Date last_updated;
 
-    public static ExperianDto from (ExperianModel experianModel){
-        return ExperianDto.builder()
-                .id(experianModel.getId())
-                .companyName(experianModel.getCompanyName())
-                .registrationDate(experianModel.getRegistrationDate())
-                .score(experianModel.getScore())
-                .directorsCount(experianModel.getDirectorsCount())
-                .lastUpdated(experianModel.getLastUpdated())
-                .build();
+    public Integer getMsg_id() {
+        return msg_id;
+    }
+
+    public void setMsg_id(Integer msg_id) {
+        this.msg_id = msg_id;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
+    }
+
+    public Date getRegistration_date() {
+        return registration_date;
+    }
+
+    public void setRegistration_date(Date registration_date) {
+        this.registration_date = registration_date;
+    }
+
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
+    }
+
+    public Integer getDirectors_count() {
+        return directors_count;
+    }
+
+    public void setDirectors_count(Integer directors_count) {
+        this.directors_count = directors_count;
+    }
+
+    public Date getLast_updated() {
+        return last_updated;
+    }
+
+    public void setLast_updated(Date last_updated) {
+        this.last_updated = last_updated;
     }
 }

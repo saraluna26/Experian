@@ -1,10 +1,12 @@
 package com.sarasoliszambrano.experian.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Date;
 
 @Data
+@Builder
 public class ExperianModel {
 
     private Integer id;
@@ -13,6 +15,8 @@ public class ExperianModel {
     private Float score;
     private Integer directorsCount;
     private Date lastUpdated;
+
+    public ExperianModel(){}
 
     public ExperianModel(Integer id, String companyName, Date registrationDate, Float score, Integer directorsCount, Date lastUpdated) {
         this.id = id;

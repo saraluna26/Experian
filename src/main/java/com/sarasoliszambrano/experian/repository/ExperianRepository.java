@@ -1,16 +1,11 @@
 package com.sarasoliszambrano.experian.repository;
 
-import com.sarasoliszambrano.experian.controller.ExperianController;
-import com.sarasoliszambrano.experian.dto.ExperianDto;
 import com.sarasoliszambrano.experian.model.ExperianModel;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 @Repository
@@ -55,10 +50,10 @@ public class ExperianRepository {
         }
         if (!exist){
             log.info("The id does not exist -- inserting new row...");
-            insertValue(model);
+           // insertValue(model);
         } else {
             log.info("The id exist -- updating the row...");
-            updateValue(model);
+            //updateValue(model);
         }
     }
 
