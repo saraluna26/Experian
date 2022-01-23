@@ -1,4 +1,4 @@
-package com.sarasoliszambrano.experian.service;
+package com.sarasoliszambrano.experian.service.interf;
 
 import com.sarasoliszambrano.experian.dto.ExperianDto;
 import org.json.JSONException;

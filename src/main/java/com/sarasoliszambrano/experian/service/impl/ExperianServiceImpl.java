@@ -4,7 +4,7 @@ import com.sarasoliszambrano.experian.dto.ExperianDto;
 import com.sarasoliszambrano.experian.mapper.Mapper;
 import com.sarasoliszambrano.experian.model.ExperianModel;
 import com.sarasoliszambrano.experian.repository.ExperianRepository;
-import com.sarasoliszambrano.experian.service.ExperianService;
+import com.sarasoliszambrano.experian.service.interf.ExperianService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +43,6 @@ public class ExperianServiceImpl implements ExperianService {
     public void updateRecord(ExperianDto dto) throws SQLException {
         experianRepository.dataBaseConnection();
         ExperianModel model = Mapper.fromDtoToModel(dto);
-
-        log.info(" ------ Body DTO ------- " +  dto.toString());
-        log.info(" ------ Body Model ------- " +  model.toString());
-
         experianRepository.updateRecord(model);
     }
 }

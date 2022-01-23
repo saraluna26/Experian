@@ -39,9 +39,10 @@ public class ExperianRepository {
     }
 
     public void updateRecord(ExperianModel model) throws SQLException {
-        allValuesResult = getAllValues();
         Boolean exist = false;
-        Integer currentId = null;
+        Integer currentId;
+
+        allValuesResult = getAllValues();
         while (allValuesResult.next()) {
             currentId = allValuesResult.getInt("msg_id");
             if (model.getId() == currentId) {
@@ -49,28 +50,21 @@ public class ExperianRepository {
             }
         }
         if (!exist){
-            log.info("The id does not exist -- inserting new row...");
-           // insertValue(model);
+            log.info("The id does not exist -- Inserting new row...");
+            insertValue(model);
         } else {
-            log.info("The id exist -- updating the row...");
-            //updateValue(model);
+            log.info("The id exist -- Updating the value...");
+            updateValue(model);
         }
     }
 
-    public void insertValue (ExperianModel model) throws SQLException {
-        log.info(" ---- In inserting new value ---- ");
-        /*String sql = "INSERT INTO experian.data(msg_id, company_name, registration_date, score, directors_count,last_updated) VALUES (?, ?, ?, ?, ?, ?)";
-        //try{
-            prepareStatements =  dbConnection.prepareStatement(sql);
-            allValuesResult = getAllValues();
-            Integer newId = null;
+    public void insertValue (ExperianModel model) {
+        log.debug(" ... in adding new value ... ");
+        String sql = "INSERT INTO experian.data(msg_id, company_name, registration_date, score, directors_count,last_updated) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            prepareStatements = dbConnection.prepareStatement(sql);
 
-            if(allValuesResult.last()){
-                newId = allValuesResult.getInt("msg_id") + 1;
-                log.info("last id  ---- " + newId);
-            }
-            log.info("Id valuee  ---- " + newId);
-            prepareStatements.setInt(1, newId);
+            prepareStatements.setInt(1, model.getId());
             prepareStatements.setString(2, model.getCompanyName());
             prepareStatements.setDate(3, model.getRegistrationDate());
             prepareStatements.setFloat(4, model.getScore());
@@ -78,36 +72,50 @@ public class ExperianRepository {
             prepareStatements.setDate(6, model.getLastUpdated());
 
             prepareStatements.executeUpdate();
-        //    log.info("New value added");
-       // }catch(SQLException e) {
-           // log.error("Error adding or updating a new row");
-        //}
-
-     //   INSERT INTO `experian`.`data` (`msg_id`, `company_name`, `registration_date`, `score`, `directors_count`, `last_updated`)
-        //VALUES ('2', 'Experian2', '2022-01-19 12:35:29', '6.2', '5', '2022-01-20 12:35:29');*/
+            log.info(" ... new value added! ");
+        }catch (SQLException e){
+            log.error("Error adding a new row", e);
+        }
 
     }
 
     public void updateValue (ExperianModel model) throws SQLException {
-        log.info(" ---- In updating the value ---- ");
+        log.debug(" ... in updating the value ... ");
+        try {
+            String sql = "UPDATE experian.data SET company_name = ? WHERE msg_id = ?";
+            prepareStatements =  dbConnection.prepareStatement(sql);
+            prepareStatements.setString(1, model.getCompanyName());
+            prepareStatements.setInt(2, model.getId());
+            prepareStatements.executeUpdate();
 
-        String sql = "UPDATE experian.data " +
-                "SET company_name = ? " +
-                "WHERE msg_id = ?";
+            sql = "UPDATE experian.data SET registration_date = ? WHERE msg_id = ?";
+            prepareStatements =  dbConnection.prepareStatement(sql);
+            prepareStatements.setDate(1, model.getRegistrationDate());
+            prepareStatements.setInt(2, model.getId());
+            prepareStatements.executeUpdate();
 
-        log.info(" ---- Values model  ---- ");
-        log.info(model.getCompanyName() + model.getId());
+            sql = "UPDATE experian.data SET score = ? WHERE msg_id = ?";
+            prepareStatements =  dbConnection.prepareStatement(sql);
+            prepareStatements.setFloat(1, model.getScore());
+            prepareStatements.setInt(2, model.getId());
+            prepareStatements.executeUpdate();
 
-        prepareStatements =  dbConnection.prepareStatement(sql);
-        prepareStatements.setString(1, model.getCompanyName());
-        prepareStatements.setInt(2, model.getId());
-        prepareStatements.executeUpdate();
+            sql = "UPDATE experian.data SET last_updated = ? WHERE msg_id = ?";
+            prepareStatements =  dbConnection.prepareStatement(sql);
+            prepareStatements.setDate(1, model.getLastUpdated());
+            prepareStatements.setInt(2, model.getId());
+            prepareStatements.executeUpdate();
 
-        /*prepareStatements.setInt(1, newId);
-        prepareStatements.setString(2, model.getCompanyName());
-        prepareStatements.setDate(3, model.getRegistrationDate());
-        prepareStatements.setFloat(4, model.getScore());
-        prepareStatements.setInt(5, model.getDirectorsCount());
-        prepareStatements.setDate(6, model.getLastUpdated()); */
+
+            sql = "UPDATE experian.data SET directors_count = ? WHERE msg_id = ?";
+            prepareStatements =  dbConnection.prepareStatement(sql);
+            prepareStatements.setInt(1, model.getDirectorsCount());
+            prepareStatements.setInt(2, model.getId());
+            prepareStatements.executeUpdate();
+
+            log.info(" ... value updated! ");
+        } catch (SQLException e){
+            log.error("Error updating the row", e);
+        }
     }
 }

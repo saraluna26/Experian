@@ -1,7 +1,7 @@
 package com.sarasoliszambrano.experian.controller;
 
 import com.sarasoliszambrano.experian.dto.ExperianDto;
-import com.sarasoliszambrano.experian.service.ExperianService;
+import com.sarasoliszambrano.experian.service.interf.ExperianService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,11 +29,10 @@ public class ExperianController {
         return new ResponseEntity<>(responseList, HttpStatus.OK);
     }
 
-    @PutMapping(path="/updateRecord", consumes={MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path="/updateRecord", consumes={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<ExperianDto> updateRecord(@RequestBody ExperianDto experianDto) throws Exception {
         log.debug(" ------ In Update Record Controller ------- ");
         experianService.updateRecord(experianDto);
         return new ResponseEntity<>(HttpStatus.OK);
-        // para cuando tenemos la insercion -- seguir buscando el error
     }
 }
