@@ -30,7 +30,8 @@ public class ExperianServiceImpl implements ExperianService {
         ResultSet allValuesModelrs = experianRepository.getAllValues();
         ArrayList<ExperianModel> allValuesModelList = new ArrayList<ExperianModel>();
         while(allValuesModelrs.next()) {
-            allValuesModelList.add(new ExperianModel(allValuesModelrs.getString("company_name"),
+            allValuesModelList.add(new ExperianModel(allValuesModelrs.getInt("msg_id"),
+                    allValuesModelrs.getString("company_name"),
                     allValuesModelrs.getDate("registration_date"),
                     allValuesModelrs.getFloat("score"),
                     allValuesModelrs.getInt("directors_count"),
